@@ -13,3 +13,5 @@ sealed class InformationScreens(val route: String) {
         fun passBin(bin: String) = "detail/$bin"
     }
 }
+
+val screensForBottomNav = listOf(Screens.History, Screens.Information)
