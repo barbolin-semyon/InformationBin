@@ -70,4 +70,7 @@ dependencies {
     //Room
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    //LiveData
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_ui_version"
 }
