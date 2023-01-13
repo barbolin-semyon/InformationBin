@@ -16,13 +16,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.example.informationbin.ui.navigation.AppBottomNavigation
 import com.example.informationbin.ui.navigation.NavGraph
+import com.example.informationbin.ui.theme.Gray
 import com.example.informationbin.ui.theme.InformationBinTheme
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
+            val uiController = rememberSystemUiController()
+
+            uiController.setStatusBarColor(Gray)
 
             InformationBinTheme {
                 Scaffold(bottomBar = { AppBottomNavigation(navHostController = navController) }) {
