@@ -3,6 +3,7 @@ package com.example.informationbin.ui.navigation
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
@@ -32,8 +33,11 @@ fun AppBottomNavigation(navHostController: NavHostController) {
                 icon = {
                     Icon(
                         painter = painterResource(id = screen.icon),
-                        contentDescription = screen.route
+                        contentDescription = screen.label
                     )
+                },
+                label = {
+                    Text(text = screen.label)
                 },
                 selectedContentColor = Color.White,
                 unselectedContentColor = Gray
