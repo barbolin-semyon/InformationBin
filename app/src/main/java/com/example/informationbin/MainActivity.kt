@@ -27,12 +27,10 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             val uiController = rememberSystemUiController()
 
-            uiController.setStatusBarColor(Gray)
-
             InformationBinTheme {
                 Scaffold(bottomBar = { AppBottomNavigation(navHostController = navController) }) {
                     Box(Modifier.padding(it)) {
-                        NavGraph(navController = navController)
+                        NavGraph(navController = navController, ui = uiController)
                     }
                 }
             }
