@@ -33,7 +33,7 @@ class BinViewModel : ViewModel() {
     private fun getCurrentDateStringType(): String {
         val date = Calendar.getInstance()
         val format = SimpleDateFormat("dd.MMMM.yyyy", Locale("ru"))
-        return format.format(date)
+        return format.format(date.time)
     }
 
     private fun addElementInHistory(bin: String) = viewModelScope.launch {
