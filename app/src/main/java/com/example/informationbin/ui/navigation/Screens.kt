@@ -9,7 +9,7 @@ sealed class Screens(val route: String, val icon: Int, val label: String) {
 
 sealed class InformationScreens(val route: String) {
     object InputBin : InformationScreens("input")
-    object DetailBin : InformationScreens("detail/{bin}}") {
+    object DetailBin : InformationScreens("detail/{bin}") {
         fun passBin(bin: String) = "detail/$bin"
     }
 }
