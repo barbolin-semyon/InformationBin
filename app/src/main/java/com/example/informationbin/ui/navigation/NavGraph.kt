@@ -40,7 +40,7 @@ fun NavGraphBuilder.information(navController: NavHostController, ui: SystemUiCo
             ui.setStatusBarColor(Green)
 
             navBackStackEntry.arguments?.getString("bin")?.let { bin ->
-
+                BinInformationView(navController, bin)
             }
         }
     }
