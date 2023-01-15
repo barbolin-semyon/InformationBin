@@ -23,7 +23,7 @@ object Repository {
     }
 
     suspend fun addElementInHistory(historyElement: HistoryElement) {
-        return localDb.insert()
+        return localDb.insert(historyElement)
     }
 
     suspend fun deleteHistory(historyElement: HistoryElement) {
