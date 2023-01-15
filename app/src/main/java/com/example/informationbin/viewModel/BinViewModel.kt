@@ -63,7 +63,8 @@ class BinViewModel : ViewModel() {
 
     fun getHistory() = viewModelScope.launch {
         _isLoading.value = true
-        async { repository.getHistory() }.await()
+        val result = async { repository.getHistory() }.await()
+        _history.value = result
         _isLoading.value = false
     }
 
