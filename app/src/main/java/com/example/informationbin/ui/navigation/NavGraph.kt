@@ -5,6 +5,7 @@ import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.informationbin.ui.features.BinInformationView
+import com.example.informationbin.ui.features.HistoryView
 import com.example.informationbin.ui.features.InputBinView
 import com.example.informationbin.ui.theme.Gray
 import com.example.informationbin.ui.theme.Green
@@ -17,6 +18,7 @@ fun NavGraph(navController: NavHostController, ui: SystemUiController) {
 
         composable(route = Screens.History.route) {
             ui.setStatusBarColor(Gray)
+            HistoryView(navController)
         }
     }
 }
