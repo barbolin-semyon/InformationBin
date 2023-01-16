@@ -1,7 +1,9 @@
 package com.example.informationbin.ui.features
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -37,20 +39,32 @@ fun HistoryView(navHostController: NavHostController) {
 
     LazyColumn {
         items(history.value!!) { history ->
-            CardForHistory(historyElement = history) {
-                navHostController.navigate(InformationScreens.DetailBin.passBin(history.bin!!))
-            }
+            CardForHistory(
+                historyElement = history,
+                deleteCard = { viewModel.deleteHistory(history) },
+                onClick = {
+                    navHostController.navigate(InformationScreens.DetailBin.passBin(history.bin!!))
+                }
+            )
         }
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun CardForHistory(historyElement: HistoryElement, onClick: () -> Unit) {
+private fun CardForHistory(
+    historyElement: HistoryElement,
+    onClick: () -> Unit,
+    deleteCard: () -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 32.dp, vertical = 8.dp)
-            .clickable { onClick() },
+            .combinedClickable(
+                onClick = { onClick() },
+                onLongClick = { deleteCard() }
+            ),
         shape = MaterialTheme.shapes.medium
     ) {
         Row(

@@ -70,6 +70,6 @@ class BinViewModel : ViewModel() {
     fun deleteHistory(historyElement: HistoryElement) = viewModelScope.launch {
         _isLoading.value = true
         async { repository.deleteHistory(historyElement) }.await()
-        _isLoading.value = false
+        getHistory()
     }
 }
