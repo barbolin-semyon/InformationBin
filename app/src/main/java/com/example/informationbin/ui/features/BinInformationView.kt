@@ -1,5 +1,9 @@
 package com.example.informationbin.ui.features
 
+import android.content.Intent
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContract
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,6 +20,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -48,7 +53,11 @@ fun BinInformationView(navHostController: NavHostController, bin: String) {
 
         val process = viewModel.isLoading.observeAsState()
 
-        Card(modifier = Modifier.fillMaxSize(), shape = RoundedCornerShape(topStart = 64.dp), elevation = 32.dp ) {
+        Card(
+            modifier = Modifier.fillMaxSize(),
+            shape = RoundedCornerShape(topStart = 64.dp),
+            elevation = 32.dp
+        ) {
             if (process.value == true) {
                 CircularProgressIndicator()
             } else {
@@ -64,13 +73,24 @@ fun BinInformationView(navHostController: NavHostController, bin: String) {
 private fun BinDetailView(binDetail: BinDetail) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         CardNumberText(number = binDetail.numberBin)
-        
+
         TextWithTitle(title = "Scheme", value = binDetail.scheme)
         TextWithTitle(title = "brand", value = binDetail.brand)
         TextWithTitle(title = "type", value = binDetail.type)
         TextWithTitle(title = "prepaid", value = binDetail.prepaid.toStringYesOrNo())
 
-        BankInformation(bank = binDetail.bank, onClickWeb = {}, onClickNumber = {})
+        val context = LocalContext.current
+
+        BankInformation(
+            bank = binDetail.bank,
+            onClickWeb = {
+                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://${binDetail.bank.url}")))
+            },
+
+            onClickNumber = {
+
+            }
+        )
         CountryText(country = binDetail.country)
     }
 }
