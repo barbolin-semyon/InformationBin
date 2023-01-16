@@ -88,7 +88,7 @@ private fun BinDetailView(binDetail: BinDetail) {
             },
 
             onClickNumber = {
-
+                context.startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel: $it")))
             }
         )
         CountryText(country = binDetail.country)
