@@ -3,6 +3,8 @@ package com.example.informationbin.ui.features
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -11,11 +13,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.informationbin.ui.navigation.InformationScreens
 import com.example.informationbin.ui.theme.Gray
 import com.example.informationbin.ui.theme.Green
+import com.example.informationbin.util.CardVisualTransformation
 
 @Composable
 fun InputBinView(navHostController: NavHostController) {
@@ -32,6 +38,8 @@ fun InputBinView(navHostController: NavHostController) {
             value = bin.value,
             onValueChange = { bin.value = it },
             textStyle = MaterialTheme.typography.h4,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            visualTransformation = CardVisualTransformation(' '),
             label = {
                 Text(
                     text = "Введите первые цифры карты",
