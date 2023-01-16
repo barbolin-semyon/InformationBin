@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -23,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.informationbin.data.emptities.HistoryElement
+import com.example.informationbin.ui.features.component.ErrorMessage
 import com.example.informationbin.ui.features.component.TextInGreenCircle
 import com.example.informationbin.ui.navigation.InformationScreens
 import com.example.informationbin.ui.theme.Green
@@ -37,15 +39,26 @@ fun HistoryView(navHostController: NavHostController) {
         viewModel.getHistory()
     })
 
-    LazyColumn {
-        items(history.value!!) { history ->
-            CardForHistory(
-                historyElement = history,
-                deleteCard = { viewModel.deleteHistory(history) },
-                onClick = {
-                    navHostController.navigate(InformationScreens.DetailBin.passBin(history.bin!!))
+    val isLoading = viewModel.isLoading.observeAsState()
+    if (isLoading.value == true) {
+        CircularProgressIndicator()
+    } else {
+        if (history.value == null ) {
+            ErrorMessage()
+        } else if (history.value!!.isEmpty()) {
+            ErrorMessage("История пуста")
+        } else {
+            LazyColumn {
+                items(history.value!!) { history ->
+                    CardForHistory(
+                        historyElement = history,
+                        deleteCard = { viewModel.deleteHistory(history) },
+                        onClick = {
+                            navHostController.navigate(InformationScreens.DetailBin.passBin(history.bin!!))
+                        }
+                    )
                 }
-            )
+            }
         }
     }
 }
