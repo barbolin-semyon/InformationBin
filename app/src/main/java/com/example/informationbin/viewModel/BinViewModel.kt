@@ -57,7 +57,6 @@ class BinViewModel : ViewModel() {
             override fun onFailure(call: Call<BinDetail>, t: Throwable) {
                 _isLoading.value = false
             }
-
         })
     }
 
