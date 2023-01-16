@@ -84,7 +84,7 @@ private fun BinDetailView(binDetail: BinDetail) {
         BankInformation(
             bank = binDetail.bank,
             onClickWeb = {
-                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://${binDetail.bank.url}")))
+                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://${it}")))
             },
 
             onClickNumber = {
