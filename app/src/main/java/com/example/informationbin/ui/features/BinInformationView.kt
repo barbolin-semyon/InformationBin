@@ -5,10 +5,7 @@ import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
@@ -19,16 +16,15 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.informationbin.data.emptities.BinDetail
-import com.example.informationbin.ui.features.component.BankInformation
-import com.example.informationbin.ui.features.component.CardNumberText
-import com.example.informationbin.ui.features.component.CountryText
-import com.example.informationbin.ui.features.component.TextWithTitle
+import com.example.informationbin.ui.features.component.*
+import com.example.informationbin.ui.features.component.infoBin.BaseInfo
 import com.example.informationbin.ui.theme.Green
 import com.example.informationbin.util.toStringYesOrNo
 import com.example.informationbin.viewModel.BinViewModel
@@ -71,26 +67,31 @@ fun BinInformationView(navHostController: NavHostController, bin: String) {
 
 @Composable
 private fun BinDetailView(binDetail: BinDetail) {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        CardNumberText(number = binDetail.numberBin)
-
-        TextWithTitle(title = "Scheme", value = binDetail.scheme)
-        TextWithTitle(title = "brand", value = binDetail.brand)
-        TextWithTitle(title = "type", value = binDetail.type)
-        TextWithTitle(title = "prepaid", value = binDetail.prepaid.toStringYesOrNo())
-
+    Column(
+        modifier = Modifier.padding(start = 8.dp)
+    ) {
         val context = LocalContext.current
+
+        CardNumberText(number = binDetail.numberBin)
+        BaseInfo(binDetail)
 
         BankInformation(
             bank = binDetail.bank,
             onClickWeb = {
                 context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://${it}")))
             },
-
             onClickNumber = {
                 context.startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel: $it")))
             }
         )
-        CountryText(country = binDetail.country)
+
+        CountryText(country = binDetail.country) { latitude, longitude ->
+            context.startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("geo:$latitude, $longitude")
+                )
+            )
+        }
     }
 }

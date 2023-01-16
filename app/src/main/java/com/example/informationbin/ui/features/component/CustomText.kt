@@ -13,20 +13,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.informationbin.data.emptities.NumberBin
 import com.example.informationbin.ui.theme.Green
 
 @Composable
 fun TextInColumn(title: String, value: String) {
     Column(horizontalAlignment = Alignment.Start) {
-        Text(text = title)
-        Text(text = value)
+        Text(text = title, fontSize = 20.sp)
+        Text(text = value, fontSize = 20.sp)
     }
 }
 
 @Composable
-fun TextWithTitle(title: String, value: String) {
-    Text(text = buildAnnotatedString {
+fun TextWithTitle(title: String, value: String, modifier: Modifier = Modifier) {
+    Text(modifier = modifier, fontSize = 20.sp, text = buildAnnotatedString {
         withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
             append("$title:")
         }
@@ -39,6 +40,7 @@ fun TextWithAction(text: String, action: () -> Unit) {
     Text(
         text = text,
         color = Green,
+        fontSize = 18.sp,
         textDecoration = TextDecoration.Underline,
         modifier = Modifier.clickable { action() }
     )
