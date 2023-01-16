@@ -15,3 +15,4 @@ sealed class InformationScreens(val route: String) {
 }
 
 val screensForBottomNav = listOf(Screens.History, Screens.Information)
+val infoRoutes = listOf(InformationScreens.InputBin.route, InformationScreens.DetailBin.route)

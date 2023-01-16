@@ -10,7 +10,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.informationbin.ui.theme.DarkGray
 import com.example.informationbin.ui.theme.Gray
+import com.example.informationbin.ui.theme.Green
 
 @Composable
 fun AppBottomNavigation(navHostController: NavHostController) {
@@ -19,28 +21,22 @@ fun AppBottomNavigation(navHostController: NavHostController) {
 
     BottomNavigation {
         screensForBottomNav.forEach { screen ->
-            BottomNavigationItem(
-                selected = screen.route == route,
-                onClick = {
-                    navHostController.navigate(screen.route) {
-                        popUpTo(navHostController.graph.startDestinationId) {
-                            saveState = true
-                        }
-                        launchSingleTop = true
-                        restoreState = true
-                    }
-                },
-                icon = {
-                    Icon(
-                        painter = painterResource(id = screen.icon),
-                        contentDescription = screen.label
-                    )
-                },
-                label = {
-                    Text(text = screen.label)
-                },
-                selectedContentColor = Color.White,
-                unselectedContentColor = Gray
+            val selected =
+                screen.route == route || ((route in infoRoutes) && (screen.route == Screens.Information.route))
+
+
+            BottomNavigationItem(selected = selected, onClick = {
+                navHostController.navigate(screen.route) {
+                    launchSingleTop = true
+                }
+            }, icon = {
+                Icon(
+                    painter = painterResource(id = screen.icon),
+                    contentDescription = screen.label
+                )
+            }, label = {
+                Text(text = screen.label)
+            }, selectedContentColor = Color.White, unselectedContentColor = DarkGray
             )
         }
     }
